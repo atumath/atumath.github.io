@@ -1,4 +1,4 @@
-baseURL = 'https://atumath.github.io'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'ATU Math'
 
