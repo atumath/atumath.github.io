@@ -2,6 +2,8 @@ baseURL = 'https://atumath.github.io'
 languageCode = 'en-us'
 title = 'ATU Math'
 
+theme = 'hugo_theme_pickles'
+
 # Copyright notice. This is displayer in the footer.
 copyright = "&copy; Copyright notice"
 
