@@ -1,15 +1,17 @@
-<nav class="c-pagination p-pagination">
-  <div class="c-pagination__ctrl">
-    <div class="c-pagination__newer">
-      {{if .HasPrev}}
-      <a href="{{ .Prev.URL }}">Newer</a>
-      {{end}}
-    </div>
-    <div class="c-pagination__older">
-      {{if .HasNext}}
-      <a href="{{ .Next.URL }}">Older</a>
-      {{end}}
-    </div>
-  </div>
-  <span class="c-pagination__count p-pagination__count">Page {{ .PageNumber }} of {{.TotalPages}}</span>
+<nav class="pagination">
+
+  {{ if .HasPrev }}
+    <span><a href="{{ .Prev.URL }}">&#x27FD;</a></span>
+  {{ else }}
+    <span class="hidden">&#x27FD;</span>
+  {{end}}
+  
+  <span>Page {{ .PageNumber }} of {{.TotalPages}}</span>
+  
+  {{ if .HasNext }}
+    <span><a href="{{ .Next.URL }}">&#x27FE;</a></span>
+  {{ else }}
+    <span class="hidden">&#x27FE;</span>
+  {{ end }}
+
 </nav>

@@ -1,20 +1,85 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
-{{ partial "head.html" . }}
-<body>
-  <a href="#main" class="skip-link p-screen-reader-text">Skip to content</a>
-  {{ partial "svgpack-sprite.html" . }}
-  <header class="l-header">
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    
+    {{ with .Title }}
+      <title>{{ . }}</title>
+      <meta property="og:title" content="{{ . }}" />
+      <meta name="twitter:title" content="{{ . }}" />
+      <meta property="og:site_name" content="{{ . }}" />
+    {{ end }}
+  
+    {{ with .Description }}
+      <meta name="description" content="{{ . }}">
+      <meta property="og:description" content="{{ . }}">
+      <meta name="twitter:description" content="{{ . | truncate 200 }}">
+    {{ end }}
+  
+    <meta name="author" content="{{ .Author }}"/>
+    
+    <meta property="og:url" content="{{ .Permalink }}" />
+  
+    {{ with .Params.thumbnail }}
+      <meta property="og:image" content="{{ . | absURL }}" />
+      <meta name="twitter:image" content="{{ . | absURL }}" />
+    {{ end }}
+    
+    <meta name="twitter:card" content="summary" />
+  
+    {{ with ($.Param "twitter") }}
+      <meta name="twitter:site" content="@{{ . }}" />
+      <meta name="twitter:creator" content="@{{ . }}" />
+    {{ end }}
+  
     {{ if .IsPage }}
-    <p class="c-title p-title"><a href="{{ .Site.BaseURL }}" class="p-title__link">{{ .Site.Title }}</a></p>
-    {{ else }}
-    <h1 class="c-title p-title"><a href="{{ .Site.BaseURL }}" class="p-title__link">{{ .Site.Title }}</a></h1>
+      <meta property="og:type" content="article" />
+      <meta property="og:type" content="website" />
     {{ end }}
-    {{ with ($.Param "subtitle") }}
-    <p class="p-subtitle">
-      {{ . }}
-    </p>
+    
+    {{ hugo.Generator -}}
+  
+    {{ if not .Site.IsServer }}
+      {{ template "_internal/google_analytics_async.html" . }}
     {{ end }}
+  
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css" />
+  
+    <link rel='icon' type='image/x-icon' href="{{ .Site.BaseURL }}favicon.ico" />
+    
+    {{ if eq .RelPermalink "/" }}
+      {{ with .OutputFormats.Get "RSS" -}}
+        <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+      {{ end -}}
+    {{ end }}
+  
+    {{ if .Params.d3 }}
+      {{ partial "d3.html" . }}
+    {{ end }}
+  
+    {{ partial "katex.html" . }}
+  
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  
+  </head>
+  
+
+<body>
+
+  <header class="title">
+    <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+    <div class="print_title">ian.mcloughlin@gmit.ie &#x2609; github.com/ianmcloughlin &#x2609; ianmcloughlin.github.io</div>
   </header>
-  {{- partial "header_custom.html" . }}
-  <main id="main" class="l-main">
+
+  {{ partial "menu.html" . }}  
+  
+  <main>

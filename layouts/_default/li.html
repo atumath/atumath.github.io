@@ -1,23 +1,14 @@
-<article class="c-article p-list-article">
+<article class="post_list_item">
   <header>
-    <h2 class="c-title c-article__title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <p class="c-article__meta">
-      {{ partial "timestamp.html" . }}
-      {{ if not (.Param "hideModifiedDate") }}
-         | {{ partial "modified_date.html" . }}
-      {{ end }}
-      {{ if not (.Param "hideWordCount") }}
-         | {{ partial "word_count.html" . }}
-      {{ end }}
-      {{ if not (.Param "hideReadingTime") }}
-         | {{ partial "reading_time.html" . }}
-      {{ end }}
-    </p>
+    <h1 class="post_list_title"><a class="post_list_title_link" href="{{ .Permalink }}">{{ .Title }}</a></h1>
+    <p class="post_list_date">{{ partial "timestamp.html" . }}</p>
   </header>
-  <div class="c-article__summary">
+  <div class="post_list_summary">
     {{ .Summary | plainify | safeHTML }}
   </div>
   {{ if .Truncated }}
-  <a href="{{ .Permalink }}" class="c-article__btn p-list-article__btn">Read more</a>
+    <a href="{{ .Permalink }}" class="post_list_readmore">Read more &#x203A;</a>
   {{ end }}
 </article>
+
+<hr>
